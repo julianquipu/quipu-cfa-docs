@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constancia de Solicitud de Crédito — Quipu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F0F0EB;
+      min-height: 100vh;
+      padding: 32px 16px;
+      color: #1a1a1a;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .document {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    .header {
+      background-color: #064640;
+      padding: 28px 36px 24px;
+      color: #ffffff;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .brand-text .tagline {
+      font-size: 12px;
+      font-weight: 400;
+      color: #B1DCDC;
+      margin-top: 4px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .header-meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .header-meta .datetime {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .badge-approved {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #009991;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .badge-approved::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #B1DCDC;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .header-ids {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .header-id-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .header-id-item .id-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .header-id-item .id-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .header-id-item .id-value.plain {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    /* ── BODY ────────────────────────────────────────────── */
+    .body {
+      padding: 0 36px 36px;
+    }
+
+    /* ── SECTION ─────────────────────────────────────────── */
+    .section {
+      padding-top: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #064640;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .badge-done {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #009991;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid #00726C;
+    }
+
+    .badge-done::before {
+      content: '✓';
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, #009991 60px, #B1DCDC 60px);
+      margin-bottom: 20px;
+    }
+
+    /* ── FIELD GRID ─────────────────────────────────────── */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 32px;
+    }
+
+    .field-grid.single {
+      grid-template-columns: 1fr;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .field.span-2 {
+      grid-column: span 2;
+    }
+
+    .field-label {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .field-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .field-value.mono {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 13.5px;
+    }
+
+    /* ── CREDIT SECTION ──────────────────────────────────── */
+    .section-credit {
+      margin-top: 28px;
+      background-color: #E0F1F2;
+      border-radius: 10px;
+      padding: 28px;
+      border: 1px solid #B1DCDC;
+    }
+
+    .credit-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .credit-divider {
+      height: 1px;
+      background: linear-gradient(to right, #009991 60px, #B1DCDC 60px);
+      margin-bottom: 24px;
+    }
+
+    .credit-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .monto-block .monto-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #064640;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 4px;
+    }
+
+    .monto-block .monto-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: #064640;
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    .monto-block .monto-sub {
+      font-size: 12px;
+      color: #009991;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    /* Score */
+    .score-block {
+      text-align: right;
+      min-width: 200px;
+    }
+
+    .score-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .score-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: #064640;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .score-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #064640;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: -1px;
+    }
+
+    .score-max {
+      font-size: 14px;
+      color: #6b7280;
+      font-weight: 400;
+    }
+
+    .score-bar-track {
+      width: 200px;
+      height: 8px;
+      background: #B1DCDC;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-left: auto;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      width: 84.7%; /* 720/850 */
+      background: linear-gradient(to right, #009991, #064640);
+      border-radius: 99px;
+    }
+
+    .score-caption {
+      font-size: 11px;
+      color: #009991;
+      font-weight: 500;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    /* Conditions grid */
+    .conditions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 32px;
+      margin-bottom: 24px;
+    }
+
+    /* Costs block */
+    .costs-block {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px 20px;
+      border: 1px solid #B1DCDC;
+    }
+
+    .costs-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #064640;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 12px;
+    }
+
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid #E0F1F2;
+    }
+
+    .cost-row:last-child {
+      border-bottom: none;
+    }
+
+    .cost-row.total {
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 2px solid #009991;
+      border-bottom: none;
+    }
+
+    .cost-name {
+      font-size: 13px;
+      color: #374151;
+      font-weight: 400;
+    }
+
+    .cost-name .optional-tag {
+      font-size: 10px;
+      color: #9ca3af;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .cost-amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+    }
+
+    .cost-row.total .cost-name {
+      font-weight: 700;
+      color: #064640;
+      font-size: 14px;
+    }
+
+    .cost-row.total .cost-amount {
+      font-weight: 700;
+      color: #064640;
+      font-size: 14px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .footer {
+      margin: 0 36px;
+      padding: 16px 0 28px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .footer-left strong {
+      color: #374151;
+      font-weight: 600;
+    }
+
+    .footer-right {
+      font-size: 10.5px;
+      color: #9ca3af;
+      font-family: 'DM Mono', monospace;
+      text-align: right;
+    }
+
+    /* ── PRINT ───────────────────────────────────────────── */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .document {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+      }
+
+      .section-credit {
+        break-inside: avoid;
+      }
+
+      .field-grid {
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .header { padding: 20px; }
+      .body { padding: 0 20px 24px; }
+      .footer { margin: 0 20px; }
+      .header-top { flex-direction: column; }
+      .header-meta { text-align: left; }
+      .field-grid { grid-template-columns: 1fr; }
+      .field.span-2 { grid-column: span 1; }
+      .conditions-grid { grid-template-columns: 1fr; }
+      .credit-top { flex-direction: column; align-items: flex-start; }
+      .score-block { text-align: left; }
+      .score-bar-track { margin-left: 0; }
+      .score-label-row { justify-content: flex-start; }
+      .score-caption { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<div class="document">
+
+  <!-- ══════════════════════════════════════════════════════
+       SECCIÓN 1 — CABECERA
+  ══════════════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-top">
+
+      <!-- Brand -->
+      <div class="brand">
+        <img src="logo-quipu.png" alt="Quipu" style="height:48px">
+        <div class="brand-text">
+          <h1>quipu</h1>
+          <p class="tagline">Módulo de crédito · CFA</p>
+        </div>
+      </div>
+
+      <!-- Fecha y badge -->
+      <div class="header-meta">
+        <div class="datetime">
+          Generado el 14 de abril de 2026<br/>
+          10:47:23 a.m. (GMT-5 Bogotá)
+        </div>
+        <span class="badge-approved">Solicitud aprobada</span>
+      </div>
+    </div>
+
+    <!-- IDs row -->
+    <div class="header-ids">
+      <div class="header-id-item">
+        <span class="id-label">ID Solicitud</span>
+        <span class="id-value">SOL-2026-084731</span>
+      </div>
+      <div class="header-id-item">
+        <span class="id-label">ID Transacción</span>
+        <span class="id-value">TXN-CFA-20260414-00312</span>
+      </div>
+      <div class="header-id-item">
+        <span class="id-label">Asesor responsable</span>
+        <span class="id-value plain">Yenifer Giraldo Ospina</span>
+      </div>
+      <div class="header-id-item">
+        <span class="id-label">Oficina</span>
+        <span class="id-value plain">Medellín Centro — CFA</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── BODY ────────────────────────────────────────────── -->
+  <div class="body">
+
+    <!-- ══════════════════════════════════════════════════
+         SECCIÓN 2 — DATOS PERSONALES
+    ══════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-title">Datos personales</span>
+        <span class="badge-done">Completado</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="field-grid">
+
+        <div class="field span-2">
+          <span class="field-label">Nombres y apellidos completos</span>
+          <span class="field-value">Claudia Marcela Restrepo Ángel</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Tipo de documento</span>
+          <span class="field-value">Cédula de ciudadanía</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Número de documento</span>
+          <span class="field-value mono">43.782.915</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Fecha de nacimiento</span>
+          <span class="field-value">12 de marzo de 1985</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Lugar de nacimiento</span>
+          <span class="field-value">Medellín, Antioquia</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Ciudad de expedición</span>
+          <span class="field-value">Medellín, Antioquia</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Fecha de expedición</span>
+          <span class="field-value">08 de junio de 2008</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Género</span>
+          <span class="field-value">Femenino</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Estado civil</span>
+          <span class="field-value">Unión libre</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Grupo étnico</span>
+          <span class="field-value">Ninguno</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Ocupación</span>
+          <span class="field-value">Comerciante independiente</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Correo electrónico</span>
+          <span class="field-value mono">claudia.restrepo@gmail.com</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Teléfono de contacto</span>
+          <span class="field-value mono">+57 313 456 7890</span>
+        </div>
+
+        <div class="field span-2">
+          <span class="field-label">Dirección de residencia</span>
+          <span class="field-value">Cra. 45 N.º 62-18 Apto. 301, Barrio Castilla, Medellín</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Estrato socioeconómico</span>
+          <span class="field-value">Estrato 2</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Clase de vivienda</span>
+          <span class="field-value">Arrendada</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Persona expuesta políticamente (PEP)</span>
+          <span class="field-value">No</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">FATCA / Contribuyente EE.UU.</span>
+          <span class="field-value">No</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SECCIÓN 3 — DATOS DEL NEGOCIO
+    ══════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-title">Datos del negocio</span>
+        <span class="badge-done">Completado</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="field-grid">
+
+        <div class="field">
+          <span class="field-label">Nombre del negocio</span>
+          <span class="field-value">Tienda Naturista La Esperanza</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Actividad económica (CIIU)</span>
+          <span class="field-value mono">4772 — Comercio al por menor de productos farmacéuticos</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Ciudad de operación</span>
+          <span class="field-value">Medellín, Antioquia</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Antigüedad en la actividad</span>
+          <span class="field-value">6 años y 4 meses</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Tipo de negocio</span>
+          <span class="field-value">Persona natural — no obligada a llevar contabilidad</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Ingresos mensuales netos</span>
+          <span class="field-value mono">$ 1.850.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Arriendo del local</span>
+          <span class="field-value mono">$ 450.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Gastos familiares</span>
+          <span class="field-value mono">$ 620.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Total egresos mensuales</span>
+          <span class="field-value mono">$ 1.070.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Activos totales</span>
+          <span class="field-value mono">$ 4.200.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Pasivos totales</span>
+          <span class="field-value mono">$ 800.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Patrimonio</span>
+          <span class="field-value mono">$ 3.400.000</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Arriendos recibidos</span>
+          <span class="field-value mono">$ 0</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Otros ingresos</span>
+          <span class="field-value mono">$ 120.000</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════
+         SECCIÓN 4 — CRÉDITO Y CONDICIONES
+    ══════════════════════════════════════════════════ -->
+    <div class="section-credit">
+      <div class="credit-header">
+        <span class="section-title">Crédito y condiciones</span>
+      </div>
+      <div class="credit-divider"></div>
+
+      <!-- Monto + Score -->
+      <div class="credit-top">
+        <div class="monto-block">
+          <p class="monto-label">Monto aprobado</p>
+          <p class="monto-value">$500.000</p>
+          <p class="monto-sub">Crédito Popular Productivo Urbano</p>
+        </div>
+
+        <div class="score-block">
+          <div class="score-label-row">
+            <span class="score-tag">Quipu Score</span>
+          </div>
+          <div>
+            <span class="score-value">720</span>
+            <span class="score-max"> / 850</span>
+          </div>
+          <div class="score-bar-track">
+            <div class="score-bar-fill"></div>
+          </div>
+          <p class="score-caption">Perfil crediticio: Bueno</p>
+        </div>
+      </div>
+
+      <!-- Condiciones -->
+      <div class="conditions-grid">
+
+        <div class="field">
+          <span class="field-label">Línea de crédito</span>
+          <span class="field-value">Crédito Popular Productivo Urbano</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Plazo</span>
+          <span class="field-value">12 meses</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Periodicidad de pago</span>
+          <span class="field-value">Mensual</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Destino del crédito</span>
+          <span class="field-value">Capital de trabajo</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Forma de desembolso</span>
+          <span class="field-value">Depósito en cuenta bancaria</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Garantía</span>
+          <span class="field-value">Sin garantía</span>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Codeudor</span>
+          <span class="field-value">Sin codeudor</span>
+        </div>
+
+      </div>
+
+      <!-- Costos -->
+      <div class="costs-block">
+        <p class="costs-title">Resumen de costos</p>
+
+        <div class="cost-row">
+          <span class="cost-name">Intereses (tasa EA 26%)</span>
+          <span class="cost-amount">$ 104.783</span>
+        </div>
+
+        <div class="cost-row">
+          <span class="cost-name">
+            Fianza + IVA
+            <span class="optional-tag">(opcional)</span>
+          </span>
+          <span class="cost-amount">$ 29.760</span>
+        </div>
+
+        <div class="cost-row">
+          <span class="cost-name">Firma electrónica + IVA</span>
+          <span class="cost-amount">$ 5.950</span>
+        </div>
+
+        <div class="cost-row total">
+          <span class="cost-name">Total a pagar (12 cuotas)</span>
+          <span class="cost-amount">$ 640.493</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- ══════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-left">
+      <strong>Documento generado por Quipu</strong> · Cooperativa Financiera de Antioquia<br/>
+      14 de abril de 2026, 10:47:23 a.m. — Uso exclusivo interno y del solicitante
+    </div>
+    <div class="footer-right">
+      Documento confidencial · No distribuir sin autorización<br/>
+      Quipu v2.1.0 · SOL-2026-084731
+    </div>
+  </footer>
+
+</div><!-- /document -->
+</body>
+</html>
